@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080d18" />
+  <meta name="description" content="Evidence-first security analysis for public GitHub repositories." />
+  <title>TraceGuard — Repository Security</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="TraceGuard home"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5 27 8v7.3c0 7.2-4.5 11.5-11 14.2C9.5 26.8 5 22.5 5 15.3V8l11-4.5Z"/><path class="brand-check" d="m11.3 16.2 3.1 3.1 6.5-6.8"/></svg></span><span>trace<span class="brand-light">guard</span></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="overview"><span class="nav-icon">◫</span> Overview</button>
+      <button class="nav-item" data-view="scans"><span class="nav-icon">⌕</span> Scan history <span class="nav-count" id="history-count">0</span></button>
+      <div class="side-divider"></div>
+      <div class="workspace-label">SCANNERS</div>
+      <div class="scanner-row"><span class="scanner-icon osv">O</span><span>OSV advisories</span><span class="status-dot"></span></div>
+      <div class="scanner-row"><span class="scanner-icon secrets">⌁</span><span>Secret detection</span><span class="status-dot"></span></div>
+      <div class="scanner-row"><span class="scanner-icon semgrep">⌘</span><span>Static rules</span><span class="status-dot"></span></div>
+      <div class="sidebar-bottom"><div class="privacy-card"><div class="privacy-icon">◈</div><div><strong>Safe by design</strong><p>Repository code is never executed.</p></div></div><div class="profile"><div class="avatar">R</div><div><strong>RenokX</strong><span>Individual workspace</span></div><span class="more">···</span></div></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><div class="crumbs"><span>Workspace</span><span class="crumb-sep">/</span><strong id="crumb-current">Overview</strong></div><div class="top-actions"><span class="live-status"><i></i> All systems operational</span><button class="icon-button" title="Help" aria-label="Help">?</button><div class="top-avatar">R</div></div></header>
+      <div class="content" id="content">
+        <section class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> SECURITY OVERVIEW</div><h1>Your software,<br class="mobile-break"/> <span>under the microscope.</span></h1><p class="subtitle">Find the risks hiding in your dependencies and code.</p></div><div class="heading-meta"><span class="sparkle">✳</span><span>Evidence-first analysis<br/><b>Built for developers</b></span></div></section>
+        <section class="scan-panel"><div class="scan-panel-copy"><div class="scan-label"><span class="scan-symbol">↗</span> NEW ANALYSIS</div><h2>Scan a repository</h2><p>Start with any public GitHub repository. We’ll take it from there.</p></div><form id="scan-form" class="scan-form"><label for="repo-url" class="sr-only">GitHub repository URL</label><span class="input-github">⌘</span><input id="repo-url" type="url" placeholder="https://github.com/owner/repository" autocomplete="url" required/><button class="primary-button" id="scan-button" type="submit"><span>Start scan</span><span class="button-arrow">↗</span></button></form><div class="scan-footnote"><span class="lock">▣</span> Public repositories only <span class="foot-sep">·</span> No code execution <span class="foot-sep">·</span> Usually under a minute</div></section>
+        <section class="metrics-grid" id="metrics"><article class="metric-card"><div class="metric-top"><span>REPOSITORIES SCANNED</span><span class="metric-icon blue">▧</span></div><div class="metric-value" id="metric-repos">—</div><div class="metric-caption" id="metric-repo-label">Run your first scan to begin</div></article><article class="metric-card"><div class="metric-top"><span>FINDINGS DETECTED</span><span class="metric-icon amber">⌁</span></div><div class="metric-value" id="metric-findings">—</div><div class="metric-caption">Across all completed scans</div></article><article class="metric-card"><div class="metric-top"><span>CRITICAL &amp; HIGH</span><span class="metric-icon red">↑</span></div><div class="metric-value" id="metric-risk">—</div><div class="metric-caption">Prioritized for your attention</div></article><article class="metric-card"><div class="metric-top"><span>LAST ANALYSIS</span><span class="metric-icon violet">◷</span></div><div class="metric-value metric-date" id="metric-date">—</div><div class="metric-caption" id="metric-date-label">No scans yet</div></article></section>
+        <section class="results-section"><div class="section-heading"><div><div class="eyebrow small">LATEST ACTIVITY</div><h2>Recent scans</h2></div><button class="text-button" id="view-all">View history <span>→</span></button></div><div id="scan-state" class="empty-state"><div class="empty-art"><div class="empty-orbit orbit-one"></div><div class="empty-orbit orbit-two"></div><div class="empty-shield">◇<span>✓</span></div><i class="particle p-one"></i><i class="particle p-two"></i><i class="particle p-three"></i></div><h3>Nothing on the radar. Yet.</h3><p>Paste a GitHub URL above and your first scan will show up here.</p></div><div class="scan-results hidden" id="scan-results"></div></section>
+        <footer class="footer"><span>TRACEGUARD <span class="footer-dot">·</span> CODENEXUS INDIA 2026</span><span>Know your dependencies. Detect your risks. Secure your software.</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="finding-dialog" class="finding-dialog"><button class="dialog-close" id="close-dialog" aria-label="Close">×</button><div id="dialog-body"></div></dialog>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
