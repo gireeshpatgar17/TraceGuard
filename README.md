@@ -4,9 +4,12 @@ TraceGuard is a small security analysis dashboard for **public GitHub repositori
 
 > TraceGuard is an early MVP and review aid, not a complete security audit. A clean report does not prove that a repository is secure.
 
+![TraceGuard dashboard showing the repository scan form, severity summary, and JSON and CSV export controls](docs/images/dashboard.webp)
+
 ## Contents
 
 - [Features](#features)
+- [Scan history](#scan-history)
 - [Architecture](#architecture)
 - [Technology](#technology)
 - [Run locally](#run-locally)
@@ -27,6 +30,12 @@ TraceGuard is a small security analysis dashboard for **public GitHub repositori
 - Filters findings by category and severity; exports reports as JSON or CSV.
 - Keeps up to 12 recent scan results in the current browser's `localStorage`.
 - Does not execute repository code.
+
+## Scan history
+
+Previous reports can be reopened from the same browser.
+
+![TraceGuard scan history showing recent scans and controls to reopen their reports](docs/images/scan-history.webp)
 
 ## Architecture
 
@@ -192,6 +201,7 @@ TraceGuard/
 │   ├── index.html       # Dashboard page
 │   ├── styles.css       # Responsive dashboard styles
 │   └── app.js           # Scan UI, filters, history, and report export
+├── docs/images/        # Dashboard and scan history screenshots
 ├── .env.example        # Optional configuration placeholder; no secret values
 ├── .gitignore
 ├── README.md
